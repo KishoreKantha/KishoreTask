@@ -1,0 +1,80 @@
+<div class="cards" *ngIf="!addTask&&!updateTask">
+    <div class="card">
+        <h3>To Do</h3>
+        <div *ngIf="tasks.length>0">
+            <mat-card *ngFor="let do of tasks" style="margin-top: 5px;">
+                <mat-card-subtitle> {{do.Title}}</mat-card-subtitle>
+                <mat-card-content>{{do.Discription}} </mat-card-content>
+                <mat-card-footer> <button mat-button color="primary" (click)="acceptTask(do.Id)">Accept</button><button mat-button color="primary" (click)="task=do;updateTask=true">Update</button> <button mat-button color="warn" (click)="DeleteToDo(do.Id)">Delete</button></mat-card-footer>
+            </mat-card>
+        </div>
+        <mat-card *ngIf="tasks.length==0">
+            <mat-card-subtitle>All are done </mat-card-subtitle>
+        </mat-card>
+        <mat-card-actions align="end">
+            <button mat-button (click)="addTask=true">Add</button>
+        </mat-card-actions>
+    </div>
+    <div class="card">
+        <h3>Pending</h3>
+        <div *ngIf="pending.length>0">
+            <mat-card *ngFor="let ptask of pending" style="margin-top: 5px;">
+                <mat-card-subtitle> {{ptask.Title}}</mat-card-subtitle>
+                <mat-card-content>{{ptask.Discription}} </mat-card-content>
+                <mat-card-content>
+                    <h3 style="font-weight:bold ;">{{ptask.Worker}} </h3>Working in this task
+                </mat-card-content>
+                <mat-card-footer><button mat-button color="primary" (click)="CompleteTask(ptask.Id)">Done</button><button mat-button color="primary" (click)="task=ptask;updateTask=true">Update</button> <button mat-button (click)="DeletePending(ptask.Id)" color="warn">Delete</button></mat-card-footer>
+
+            </mat-card>
+        </div>
+        <mat-card *ngIf="pending.length==0">
+            <mat-card-subtitle>All are done </mat-card-subtitle>
+        </mat-card>
+    </div>
+    <div class="card">
+        <h3>Done</h3>
+        <div *ngIf="done.length>0">
+            <mat-card *ngFor="let dtask of done" style="margin-top: 5px;">
+                <mat-card-subtitle> {{dtask.Title}}</mat-card-subtitle>
+                <mat-card-content>{{dtask.Discription}} </mat-card-content>
+                <mat-card-content>
+                    Worked By
+                    <h3 style="font-weight:bold ;">{{dtask.Worker}} </h3>
+                </mat-card-content>
+                <mat-card-footer> <button mat-button (click)="DeleteDone(dtask.Id)" color="warn">Delete</button>
+                </mat-card-footer>
+
+            </mat-card>
+        </div>
+        <mat-card *ngIf="done.length==0">
+            <mat-card-subtitle>Nothing to show </mat-card-subtitle>
+        </mat-card>
+    </div>
+
+</div>
+<div style="margin-top: 10%;" *ngIf="addTask||updateTask">
+
+    <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+        <mat-card class="box">
+            <mat-card-header>
+                <img (click)="addTask=false;updateTask=false" style="float:right;" src="/assets/close-round-icon.png" width="20px" height="20px" alt="Close">
+            </mat-card-header>
+            <mat-card-header>
+                <mat-card-title>Task Details</mat-card-title>
+            </mat-card-header>
+            <form class="pb-form">
+                <mat-card-content>
+                    <mat-form-field class="pb-full-width">
+                        <input [(ngModel)]="task.Title" name="Title" matInput placeholder="Title">
+                    </mat-form-field>
+                    <mat-form-field class="pb-full-width">
+                        <input [(ngModel)]="task.Discription" name="Discription" matInput placeholder="Discription">
+                    </mat-form-field>
+                </mat-card-content>
+                <button mat-stroked-button color="accent" (click)="addTask?AddTask():UpdateTask()" class="btn-block">{{addTask?"Add":"Update"}}</button>
+            </form>
+        </mat-card>
+    </div>
+</div>

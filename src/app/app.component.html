@@ -1,0 +1,12 @@
+<html>
+<mat-toolbar class="app-header">
+    <div><img src="/assets/logo_pb.png" width="130"> </div>
+    <span class="nav-tool-items">
+      <a mat-button routerLink="login" routerLinkActive="active" *ngIf="!LoginEmp()">Log in</a>
+      <a mat-button mat-raised-button routerLink="register" routerLinkActive="active" *ngIf="!LoginEmp()">Register</a>
+      <a mat-button mat-raised-button routerLink="login" (click)="main.clear()" routerLinkActive="active"  *ngIf="LoginEmp()">Log Out</a>
+    </span>
+</mat-toolbar>
+<router-outlet></router-outlet>
+
+</html>
